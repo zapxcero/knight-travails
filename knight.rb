@@ -23,51 +23,40 @@ class GameBoard
     end
   end
 end
+GameBoard.new.print_board
 
-class Knight
-  attr_accessor :moves
-
-  def initialize(start_loc, end_loc)
-    @moves = valid_moves(start_loc[0], start_loc[1])
-
-    knight_moves(@moves, end_loc)
+def valid_moves(start)
+  r = start[0]
+  c = start[1]
+  valid_m = []
+  first_moves = [
+    [-2, 1],
+    [-2, -1],
+    [2, -1],
+    [2, 1],
+    [-1, -2],
+    [1, -2],
+    [-1, 2],
+    [1, 2]
+  ]
+  first_moves.each do |el|
+    row = el[0] + r
+    col = el[1] + c
+    valid_m.append([row, col]) if row.positive? && row <= 7 && col.positive? && col <= 7
   end
+  valid_m
+end
 
-  def valid_moves(r, c)
-    valid_m = []
-    test = [
-      [-2, 1],
-      [-2, -1],
-      [2, -1],
-      [2, 1],
-      [-1, -2],
-      [1, -2],
-      [-1, 2],
-      [1, 2]
-    ]
-    test.each do |el|
-      row = el[0] + r
-      col = el[1] + c
-      valid_m.append([row, col]) if row > 0 && row <= 7 && col > 0 && col <= 7
-    end
-    valid_m
-  end
+def knight_moves(start, last)
+  moves = valid_moves(start)
+  return true if moves.include? last
 
-  def knight_moves(moves, end_loc, queue = [moves.shift])
-    return if queue.empty?
-
-    if moves.include?(end_loc)
-      p moves
-      puts 'Pog'
-      return
-    end
-
+  queue = moves
+  until queue.empty?
     m = queue.shift
-    queue.append(moves.shift)
-    knight_moves(valid_moves(m[0], m[1]), end_loc, queue)
+    moves = valid_moves(m)
+    return true if moves.include? last
   end
 end
 
-GameBoard.new.print_board
-
-Knight.new([3, 3], [0, 0])
+p knight_moves([0, 0], [6, 1])
