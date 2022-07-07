@@ -1,10 +1,3 @@
-# CREATE BOARD
-# CREATE A KNIGHT
-
-# GIVEN A STARTING POSITION, GENERATE ALL POSSIBLE MOVES FOR THE KNIGHT AND STORE IT IN MOVES
-# IF FINISH POSITION IS IN MOVES RETURN TRUE
-# QUEUE
-require 'pp'
 class Knight
   attr_reader :hash, :path, :finish
 
@@ -59,10 +52,7 @@ class Knight
       @path.unshift(@finish)
       return nil
     end
-
-    # @path = [key]
     @hash.each do |x, v|
-      "#{v}----#{@finish}"
       if v.include? key_2
         @path.append(x)
         return something(x)
