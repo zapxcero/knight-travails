@@ -61,7 +61,26 @@ class Knight
   end
 end
 
-k = Knight.new([3, 3], [0, 0])
+k = Knight.new([0, 7], [5, 1])
 k.generate_vertices
 k.something(k.finish)
-p k.path.reverse
+puts "You made it in #{k.path.length - 1} moves!\nHere's your path: \n#{k.path.reverse}"
+
+arr = [
+  %w[W B W B W B W B],
+  %w[B W B W B W B W],
+  %w[W B W B W B W B],
+  %w[B W B W B W B W],
+  %w[W B W B W B W B],
+  %w[B W B W B W B W],
+  %w[W B W B W B W B],
+  %w[B W B W B W B W]
+]
+puts
+puts
+arr.each_with_index do |r, r_i|
+  r.each_with_index do |_c, c_i|
+    print "[#{r_i},#{c_i}] "
+  end
+  puts
+end
